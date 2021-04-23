@@ -4,6 +4,7 @@ all:
       ansible_become: 'yes'
       ansible_become_method: 'sudo'
       mba: 'Impacta'
+      docker_image_name: 'impacta_app'
 
 local:
    vars:

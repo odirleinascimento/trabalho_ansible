@@ -1,7 +1,7 @@
 version: "3.7"
 services:
   impacta_app:
-    image: "impacta_app:1.0"
+    image: "{{ docker_image_name }}:{{ docker_image_version }}"
     ports:
       - "5000:5000"
     environment:

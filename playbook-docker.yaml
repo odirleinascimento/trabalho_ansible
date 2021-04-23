@@ -28,19 +28,27 @@
        owner: root
        group: root
     with_items:
-      - docker-compose.yml
+            #      - docker-compose.yml
       - Dockerfile
       - app.py
       - requirements.txt 
 
   - name: Construindo a imagem
-    command: docker build -t impacta_app:1.0 .
-    args:
-       chdir: /root/
-    register: docker_build
-    tags:
-      - docker-build
-  
+    docker_image:
+      build:      
+        path: /vagrant/ansible/exemplo_2/files
+        pull: yes
+      name: "{{ docker_image_name }}"  
+      tag: "1.0"
+      source: build
+      
+  - template:
+      src: docker-compose.yml.j2
+      dest: /root/docker-compose.yml
+      owner: root
+      group: root
+      mode: 0644      
+
   - name: Executando o docker-compose
     command: docker-compose up -d
     args:
@@ -48,4 +56,3 @@
     register: docker_compose_up
     tags:
       - docker-start
-       
